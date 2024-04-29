@@ -45,11 +45,17 @@ public class CategoryViewController {
     }
 
     @GetMapping("/{categoryId}")
-    public String getCategory(@PathVariable Long categoryId, Model model){
+    public String getCategory(@PathVariable Long categoryId, @RequestParam(required = false) String keyword, Model model){
         Category category = categoryService.retrieveCategoryById(categoryId);
 
         model.addAttribute("category", category);
-        List<Post> posts = category.getPosts();
+
+        List<Post> posts;
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            posts = postService.searchPostsByKeyword(keyword);
+        } else {
+            posts = category.getPosts();
+        }
 
         Pageable pageable = PageRequest.of(0, 10);
         Page<Post> postPage = new PageImpl<>(posts, pageable, posts.size());

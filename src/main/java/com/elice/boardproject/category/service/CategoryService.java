@@ -33,6 +33,7 @@ public class CategoryService {
                 .orElseThrow(() -> new IllegalStateException("Category with id " + id + " does not exist"));
     }
 
+
     public Category createCategory(CategoryPostDto categoryPostDto){
         Category category = new Category();
         category.setCategoryName(categoryPostDto.getCategoryName());

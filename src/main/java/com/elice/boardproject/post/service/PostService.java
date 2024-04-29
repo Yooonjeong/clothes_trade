@@ -42,6 +42,10 @@ public class PostService {
                 .orElseThrow(() -> new IllegalStateException("Post with id " + id + " does not exist"));
     }
 
+    public List<Post> searchPostsByKeyword(String keyword){
+        return postRepository.findByPostTitleContaining(keyword);
+    }
+
     public Post createPost(PostPostDto postPostDto){
 
         Category category = categoryRepository.findById(postPostDto.getCategoryId())

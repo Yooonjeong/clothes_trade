@@ -74,9 +74,8 @@ public class CommentViewController {
     public String deleteComment(@PathVariable Long commentId, RedirectAttributes redirectAttributes){
         Comment comment = commentService.retrievePostById(commentId);
         Post post = comment.getPost();
+        post.getComments().remove(comment);
         List<Comment> comments =post.getComments();
-        comments.remove(comment);
-
 
         commentService.deleteComment(commentId);
 
