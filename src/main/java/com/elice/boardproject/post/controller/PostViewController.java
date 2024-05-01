@@ -101,6 +101,7 @@ public class PostViewController {
         postPutDto.setPostId(postId);
         postPutDto.setComments(post.getComments());
         postPutDto.setCategoryId(categoryId);
+        postPutDto.setColor(postPostDto.getColor());
 
         Post updatedPost = postService.updatePost(postId, postPutDto);
         Category category = updatedPost.getCategory();

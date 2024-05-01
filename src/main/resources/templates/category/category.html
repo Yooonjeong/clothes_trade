@@ -20,7 +20,55 @@
     <style>
       html,
       body {
-        font-family: "Elice DX Neolli", sans-serif;
+        font-family: "Century Gothic", sans-serif;
+      }
+      .colorSet{
+        background-color: #343a40;
+        border-color: #343a40;
+        color: white;
+      }
+      .colorSet:hover {
+        background-color: #6c757d !important;
+        border-color: #6c757d !important;
+      }
+      .pagination .page-link {
+        background-color: #6c757d;
+        border-color: #6c757d;
+      }
+      .pagination .page-link:hover {
+        background-color: #5a6268;
+        border-color: #5a6268;
+      }
+      .form-control:focus, .form-select:focus {
+        border-color: #6c757d;
+        box-shadow: 0 0 0 .25rem rgba(108, 117, 125, .25);
+      }
+      .search-group {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+      .keyword-search {
+        flex-grow: 1;
+        max-width: 90%;
+        margin-left: 50px;
+        margin-right: 20px;
+      }
+      .color-search {
+        flex: 0 0 auto;
+        max-width: 180px;
+      }
+      .add-post-btn-container {
+        position: fixed;
+        bottom: 20px;
+        right: 100px;
+      }
+      .container {
+        max-width: 1200px;
+      }
+      .list-group {
+        max-width: 1200px;
+        margin: 0 auto;
       }
     </style>
     <title th:text="${category.categoryName}"></title>
@@ -29,7 +77,7 @@
     <div class="container my-5">
       <a
         class="link link-offset-1 link-offset-2-hover text-sm fs-6 mb-2 d-block"
-        style="transition: all 0.1s ease-in-out"
+        style="transition: all 0.1s ease-in-out; color: #343a40;"
         th:href="@{/categories}"
         >&larr; 게시판 목록으로 돌아가기</a
       >
@@ -40,26 +88,46 @@
           th:text="${category.categoryDescription}"
         ></p>
       </div>
-      <div class="d-flex w-100 justify-content-between mb-3">
-        <form>
-          <div class="input-group">
-            <input
-              class="form-control"
-              name="keyword"
-              placeholder="키워드 검색"
-              th:value="${keyword}"
-            />
-            <button class="btn btn-primary lh-1 p-0 px-2">
-              <span class="material-symbols-outlined"> search </span>
-            </button>
+
+      <div class="row mb-3">
+        <div class="col-12 d-flex justify-content-center keyword-search">
+          <div class="search-group">
+          <!-- 키워드 검색 부분 -->
+            <form class="keyword-search">
+              <div class="input-group">
+                <input class="form-control" name="keyword" placeholder="키워드 검색" th:value="${keyword}" />
+                <button class="btn btn-primary lh-1 p-0 px-2 colorSet">
+                  <span class="material-symbols-outlined">search</span>
+                </button>
+              </div>
+            </form>
+                <!-- 색상 선택 부분 -->
+            <form class="color-search">
+              <div class="input-group">
+                <select class="form-select" name="color" required="false">
+                  <option value="">색상 선택</option>
+                  <option value="RED">RED</option>
+                  <option value="ORANGE">ORANGE</option>
+                  <option value="YELLOW">YELLOW</option>
+                  <option value="GREEN">GREEN</option>
+                  <option value="BLUE">BLUE</option>
+                  <option value="VIOLET">VIOLET</option>
+                  <option value="PINK">PINK</option>
+                  <option value="BLACK">BLACK</option>
+                  <option value="WHITE">WHITE</option>
+                  <option value="GREY">GREY</option>
+                  <option value="OTHERS">OTHERS</option>
+                </select>
+                <button class="btn btn-primary lh-1 p-0 px-2 colorSet">
+                  <span class="material-symbols-outlined">search</span>
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
-        <a
-          th:href="@{/posts/create(categoryId=${category.categoryId})}"
-          class="btn btn-primary"
-          >게시글 추가</a
-        >
+        </div>
       </div>
+
+    </div>
       <div class="list-group position-relative mb-3">
         <a
           class="board-item list-group-item p-3 list-group-item-action"
@@ -94,6 +162,11 @@
           </li>
         </ul>
       </div>
+    </div>
+
+    <!-- 게시글 추가 버튼 -->
+    <div class="add-post-btn-container">
+      <a th:href="@{/posts/create(categoryId=${category.categoryId})}" class="btn btn-primary colorSet">게시글 추가</a>
     </div>
 
     <!-- 부트스트랩 JS 추가 -->

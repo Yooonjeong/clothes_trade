@@ -16,5 +16,7 @@ public class PostPostDto {
     private String postTitle;
     private String postContent;
 
+    private ColorGroup color;
+
     private Long categoryId;
 }

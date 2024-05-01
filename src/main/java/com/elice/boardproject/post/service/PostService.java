@@ -5,6 +5,7 @@ import com.elice.boardproject.category.entity.CategoryPostDto;
 import com.elice.boardproject.category.entity.CategoryPutDto;
 import com.elice.boardproject.category.repository.CategoryRepository;
 import com.elice.boardproject.comment.entity.Comment;
+import com.elice.boardproject.post.entity.ColorGroup;
 import com.elice.boardproject.post.entity.Post;
 import com.elice.boardproject.post.entity.PostPostDto;
 import com.elice.boardproject.post.entity.PostPutDto;
@@ -42,8 +43,20 @@ public class PostService {
                 .orElseThrow(() -> new IllegalStateException("Post with id " + id + " does not exist"));
     }
 
-    public List<Post> searchPostsByKeyword(String keyword){
-        return postRepository.findByPostTitleContaining(keyword);
+    public Page<Post> searchPostsByCategory(Category category, Pageable pageable){
+        return postRepository.findByCategory(category, pageable);
+    }
+
+    public Page<Post> searchPostsByKeyword(String keyword, Pageable pageable){
+        return postRepository.findByPostTitleContaining(keyword, pageable);
+    }
+
+    public Page<Post> searchPostsByColor(ColorGroup color, Pageable pageable){
+        return postRepository.findByColor(color, pageable);
+    }
+
+    public Page<Post> searchPostsByKeywordAndColor(String keyword, ColorGroup color, Pageable pageable){
+        return postRepository.findByKeywordAndColor(keyword, color, pageable);
     }
 
     public Post createPost(PostPostDto postPostDto){
@@ -56,6 +69,7 @@ public class PostService {
         post.setPostContent(postPostDto.getPostContent());
         post.setCategory(category);
         post.setComments(new ArrayList<>());
+        post.setColor(postPostDto.getColor());
 
         Post savedPost = postRepository.save(post);
         return savedPost;
@@ -72,6 +86,7 @@ public class PostService {
                     existingPost.setPostContent(postPutDto.getPostContent());
                     existingPost.setCategory(category);
                     existingPost.setComments(postPutDto.getComments());
+                    existingPost.setColor(postPutDto.getColor());
                     Post updatedPost = postRepository.save(existingPost);
                     return updatedPost;
                 })

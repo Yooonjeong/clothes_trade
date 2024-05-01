@@ -20,25 +20,29 @@
     <style>
       html,
       body {
-        font-family: "Elice DX Neolli", sans-serif;
+        font-family: "Century Gothic", sans-serif;
       }
-
+      .colorSet{
+          background-color: #343a40; /* Bootstrap의 dark 회색 */
+          border-color: #343a40; /* 테두리 색상도 일치시킴 */
+          color: white; /* 텍스트 색상을 흰색으로 */
+      }
+      .colorSet:hover {
+          background-color: #6c757d !important; /* 부트스트랩의 회색 */
+          border-color: #6c757d !important; /* 테두리 색상도 회색으로 */
+      }
       .card {
         transition: all 0.1s ease-in-out;
       }
-
       .card:hover {
         transform: scale(1.01);
       }
-
       .board-item:hover {
         cursor: pointer;
       }
-
       .board-item > .btn-group {
         display: none;
       }
-
       .board-item:hover > .btn-group {
         display: flex;
       }
@@ -48,10 +52,10 @@
   <body>
     <div class="container my-5">
       <div class="header mb-5">
-        <h1 class="text-center">게시판 목록</h1>
+        <h1 class="text-center">카테고리</h1>
       </div>
       <div class="d-flex justify-content-end mb-3">
-        <a th:href="@{/categories/create}" class="btn btn-primary">게시판 추가</a>
+        <a th:href="@{/categories/create}" class="btn btn-primary colorSet">카테고리 추가</a>
       </div>
       <div class="container p-0">
         <div class="row row-cols-3 position-relative">
@@ -79,12 +83,12 @@
                     class="card-title fw-bold text-dark"
                     th:text="${category.categoryName}"
                   >
-                    게시판 이름
+                    카테고리 이름
                   </h4>
                   <span
                     class="card-text text-secondary text-wrap"
                     th:text="${category.categoryDescription}"
-                    >게시판 설명
+                    >카테고리 설명
                   </span>
                 </div>
                 <div
@@ -114,7 +118,7 @@
         <span
           th:if="${#lists.isEmpty(categories)}"
           class="d-block w-100 text-center"
-          >생성된 게시판이 없습니다.</span
+          >생성된 카테고리가 없습니다.</span
         >
       </div>
     </div>
@@ -130,7 +134,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="deleteModalLabel">
-              게시판을 삭제하시겠습니까?
+              카테고리를 삭제하시겠습니까?
             </h1>
             <button
               type="button"
@@ -140,7 +144,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <p class="fw-light">게시판에 포함된 모든 게시글이 삭제됩니다.</p>
+            <p class="fw-light">해당 카테고리에 포함된 모든 게시글이 삭제됩니다.</p>
           </div>
           <div class="modal-footer">
             <button

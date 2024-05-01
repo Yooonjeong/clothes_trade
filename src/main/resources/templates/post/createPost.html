@@ -1,70 +1,139 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://font.elice.io/css?family=Elice+DX+Neolli"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous"
+  />
+  <link
+          href="https://font.elice.io/css?family=Elice+DX+Neolli"
+          rel="stylesheet"
+  />
 
-    <style>
-      html,
-      body {
-        font-family: "Elice DX Neolli", sans-serif;
-      }
-    </style>
-    <title>게시글 추가</title>
-  </head>
-  <body>
-    <div class="container my-5">
-      <div class="header mb-5">
-        <h1 class="text-center">게시글 추가</h1>
-      </div>
-      <form th:action="@{/posts/create}" method="post">
-        <input type="hidden" name="categoryId" th:value="${categoryId}">
-        <div class="mb-3">
-          <label for="title">게시글 제목</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            name="postTitle"
-            maxlength="30"
-            placeholder="게시글 제목 입력 (최대 30자)"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="content">내용</label>
-          <textarea
-            class="form-control"
-            id="content"
-            name="postContent"
-            placeholder="내용 입력"
-          ></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">업로드</button>
-        <button
-          type="button"
-          class="btn btn-secondary"
-          onclick="window.history.back();"
-        >
-          취소
-        </button>
-      </form>
+  <style>
+    html,
+    body {
+      font-family: "Century Gothic", sans-serif;
+    }
+    .colorSet{
+      background-color: #343a40; /* Bootstrap의 dark 회색 */
+      border-color: #343a40; /* 테두리 색상도 일치시킴 */
+      color: white; /* 텍스트 색상을 흰색으로 */
+    }
+    .colorSet:hover {
+      background-color: #6c757d !important; /* 부트스트랩의 회색 */
+      border-color: #6c757d !important; /* 테두리 색상도 회색으로 */
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #6c757d;
+      box-shadow: 0 0 0 .25rem rgba(108, 117, 125, .25);
+    }
+    .color-search-container {
+      display: flex;
+      align-items: center; /* 레이블과 드롭다운을 중앙 정렬 */
+      padding-right: 20px; /* 드롭다운과의 여백 조정 */
+      margin-right: 100px; /* 레이블과 드롭다운 사이의 여백 추가 */
+    }
+    .color-search {
+      flex-grow: 1; /* 드롭다운을 컨테이너의 나머지 공간에 맞춤 */
+      max-width: 180px; /* 드롭다운의 최대 너비 지정 */
+    }
+    /* 업로드 버튼과 취소 버튼 사이의 여백 추가 */
+    .btn-primary {
+      margin-right: 5px; /* 업로드 버튼의 오른쪽 여백 추가 */
+      background-color: #343a40; /* Bootstrap의 dark 회색 */
+      border-color: #343a40; /* 테두리 색상도 일치시킴 */
+      color: white; /* 텍스트 색상을 흰색으로 */
+    }
+    .label-margin {
+      margin-right: 10px; /* 레이블과 드롭다운 사이의 여백 추가 */
+    }
+  </style>
+  <title>게시글 추가</title>
+</head>
+<body>
+<div class="container my-5">
+  <div class="header mb-5">
+    <h1 class="text-center">게시글 추가</h1>
+  </div>
+  <form th:action="@{/posts/create}" method="post" onsubmit="return validateForm()">
+    <input type="hidden" name="categoryId" th:value="${categoryId}">
+    <div class="mb-3">
+      <label for="title">게시글 제목</label>
+      <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="postTitle"
+              maxlength="30"
+              placeholder="게시글 제목 입력 (최대 30자)"
+              required
+      />
     </div>
+    <div class="mb-3">
+      <label for="content">내용</label>
+      <textarea
+              class="form-control"
+              id="content"
+              name="postContent"
+              placeholder="내용 입력"
+      ></textarea>
+    </div>
+    <div class="mb-3 row">
+      <div class="col-sm-3 color-search-container">
+        <label for="color" class="col-form-label label-margin">색상</label>
+        <select class="form-select color-search" id="color" name="color" required>
+          <option value="">색상 선택</option>
+          <option value="RED">RED</option>
+          <option value="ORANGE">ORANGE</option>
+          <option value="YELLOW">YELLOW</option>
+          <option value="GREEN">GREEN</option>
+          <option value="BLUE">BLUE</option>
+          <option value="VIOLET">VIOLET</option>
+          <option value="PINK">PINK</option>
+          <option value="BLACK">BLACK</option>
+          <option value="WHITE">WHITE</option>
+          <option value="GREY">GREY</option>
+          <option value="OTHERS">OTHERS</option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary colorSet">업로드</button>
+      <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="window.history.back();"
+      >
+        취소
+      </button>
+    </div>
+  </form>
+</div>
 
-    <!-- 부트스트랩 JS 추가 -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+<!-- 부트스트랩 JS 추가 -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+<script>
+  function validateForm() {
+    // 색상 선택된 값 가져오기
+    var color = document.getElementById('color').value;
+
+    // 색상이 선택되지 않은 경우 알림 창을 띄우고 폼 제출을 막음
+    if (color == "") {
+      alert("색상을 선택해주세요.");
+      return false; // 폼 제출을 막음
+    }
+
+    return true; // 색상이 선택되었다면 폼 제출을 진행
+  }
+</script>
+</body>
 </html>
+

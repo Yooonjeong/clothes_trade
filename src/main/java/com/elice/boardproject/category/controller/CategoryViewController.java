@@ -5,6 +5,7 @@ import com.elice.boardproject.category.entity.CategoryPostDto;
 import com.elice.boardproject.category.entity.CategoryPutDto;
 import com.elice.boardproject.comment.entity.Comment;
 import com.elice.boardproject.comment.service.CommentService;
+import com.elice.boardproject.post.entity.ColorGroup;
 import com.elice.boardproject.post.entity.Post;
 import com.elice.boardproject.post.entity.PostPostDto;
 import com.elice.boardproject.post.entity.PostPutDto;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.ui.Model;
 import com.elice.boardproject.category.entity.CategoryResponseDto;
 import com.elice.boardproject.category.service.CategoryService;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,21 +48,28 @@ public class CategoryViewController {
     }
 
     @GetMapping("/{categoryId}")
-    public String getCategory(@PathVariable Long categoryId, @RequestParam(required = false) String keyword, Model model){
+    public String getCategory(@PathVariable Long categoryId, @RequestParam(required = false) String keyword,
+                              @RequestParam(required = false) ColorGroup color, @PageableDefault(size = 10) Pageable pageable, Model model){
         Category category = categoryService.retrieveCategoryById(categoryId);
 
         model.addAttribute("category", category);
 
-        List<Post> posts;
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            posts = postService.searchPostsByKeyword(keyword);
-        } else {
-            posts = category.getPosts();
+
+        Page<Post> posts;
+        if ((keyword == null || keyword.trim().isEmpty()) && color == null) {
+            posts = postService.searchPostsByCategory(category, pageable);
+        }
+        else if(color == null) {
+            posts = postService.searchPostsByKeyword(keyword, pageable);
+        }
+        else if(keyword == null || keyword.trim().isEmpty()){
+            posts = postService.searchPostsByColor(color, pageable);
+        }
+        else{
+            posts = postService.searchPostsByKeywordAndColor(keyword, color, pageable);
         }
 
-        Pageable pageable = PageRequest.of(0, 10);
-        Page<Post> postPage = new PageImpl<>(posts, pageable, posts.size());
-        model.addAttribute("postPage", postPage);
+        model.addAttribute("postPage", posts);
         return "category/category";
     }
 

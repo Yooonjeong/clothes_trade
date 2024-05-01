@@ -20,17 +20,27 @@
     <style>
       html,
       body {
-        font-family: "Elice DX Neolli", sans-serif;
+        font-family: "Century Gothic", sans-serif;
       }
-
+      .colorSet{
+        background-color: #343a40; /* Bootstrap의 dark 회색 */
+        border-color: #343a40; /* 테두리 색상도 일치시킴 */
+        color: white; /* 텍스트 색상을 흰색으로 */
+      }
+      .colorSet:hover {
+        background-color: #6c757d !important; /* 부트스트랩의 회색 */
+        border-color: #6c757d !important; /* 테두리 색상도 회색으로 */
+      }
+      .form-control:focus {
+        border-color: #6c757d;
+        box-shadow: 0 0 0 .25rem rgba(108, 117, 125, .25);
+      }
       .dropdown-toggle:after {
         content: none;
       }
-
       .comment .btn-group {
         display: none;
       }
-
       .comment:hover .btn-group {
         display: flex;
       }
@@ -41,7 +51,7 @@
     <div class="container my-5 mx-auto">
       <a
         class="link link-offset-1 link-offset-2-hover text-sm fs-6 mb-2 d-block"
-        style="transition: all 0.1s ease-in-out"
+        style="transition: all 0.1s ease-in-out; color: #343a40;"
         th:href="@{/categories/{categoryId}(categoryId=${post.category.categoryId})}"
         >&larr; 게시판으로 돌아가기</a
       >
@@ -117,7 +127,7 @@
               cols="6"
               placeholder="댓글 작성하기"
             ></textarea>
-            <button class="btn btn-primary">업로드</button>
+            <button class="btn btn-primary colorSet">업로드</button>
           </div>
         </form>
 
@@ -235,7 +245,7 @@
               >
                 취소
               </button>
-              <button class="btn btn-primary">수정</button>
+              <button class="btn btn-primary colorSet">수정</button>
             </div>
           </form>
         </div>

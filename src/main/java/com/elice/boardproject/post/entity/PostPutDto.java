@@ -20,6 +20,8 @@ public class PostPutDto {
     private String postTitle;
     private String postContent;
 
+    private ColorGroup color;
+
     private Long categoryId;
     private List<Comment> comments;
 }

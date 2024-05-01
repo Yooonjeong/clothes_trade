@@ -26,6 +26,10 @@ public class Post extends BaseEntity {
     private String postTitle;
     private String postContent;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ColorGroup color;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -33,11 +37,12 @@ public class Post extends BaseEntity {
     @OneToMany(mappedBy = "post", fetch=FetchType.EAGER, orphanRemoval = true)
     private List<Comment> comments;
 
-    public Post(String postTitle, String postContent, Category category){
+    public Post(String postTitle, String postContent, Category category, ColorGroup color){
         //this.userId = userId;
         this.category = category;
         this.postTitle = postTitle;
         this.postContent = postContent;
+        this.color = color;
         comments = new ArrayList<>();
     }
 
@@ -48,6 +53,7 @@ public class Post extends BaseEntity {
         postPutDto.setPostContent(this.postContent);
         postPutDto.setComments(this.comments);
         postPutDto.setCategoryId(this.category.getCategoryId());
+        postPutDto.setColor(color);
         return postPutDto;
     }
 }

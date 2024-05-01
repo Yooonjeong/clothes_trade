@@ -16,40 +16,53 @@
     <style>
       html,
       body {
-        font-family: "Elice DX Neolli", sans-serif;
+        font-family: "Century Gothic", sans-serif;
+      }
+      .colorSet{
+        background-color: #343a40; /* Bootstrap의 dark 회색 */
+        border-color: #343a40; /* 테두리 색상도 일치시킴 */
+        color: white; /* 텍스트 색상을 흰색으로 */
+      }
+      .colorSet:hover {
+        background-color: #6c757d !important; /* 부트스트랩의 회색 */
+        border-color: #6c757d !important; /* 테두리 색상도 회색으로 */
+      }
+      .form-control:focus {
+        border-color: #6c757d;
+        box-shadow: 0 0 0 .25rem rgba(108, 117, 125, .25);
       }
     </style>
-    <title>게시판 추가</title>
+    <title>카테고리 추가</title>
   </head>
   <body>
     <div class="container my-5">
       <div class="header mb-5">
-        <h1 class="text-center">게시판 추가</h1>
+        <h1 class="text-center">카테고리 추가</h1>
       </div>
       <form th:action="@{/categories/create}" method="post">
         <div class="mb-3">
-          <label for="name">게시판 이름</label>
+          <label for="name">카테고리 이름</label>
           <input
             type="text"
             class="form-control"
             id="name"
             name="categoryName"
             maxlength="20"
-            placeholder="게시판 이름 입력 (최대 20자)"
+            placeholder="카테고리 이름 입력 (최대 20자)"
             required
           />
         </div>
         <div class="mb-3">
-          <label for="description">게시판 설명</label>
+          <label for="description">카테고리 설명</label>
           <textarea
             class="form-control"
             id="description"
             name="categoryDescription"
             maxlength="200"
-            placeholder="게시판 설명 입력 (최대 200자)"
+            placeholder="카테고리 설명 입력 (최대 200자)"
           ></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">게시판 추가</button>
+        <button type="submit" class="btn btn-primary colorSet">카테고리 추가</button>
         <button
           type="button"
           class="btn btn-secondary"
