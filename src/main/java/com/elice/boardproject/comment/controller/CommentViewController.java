@@ -2,21 +2,16 @@ package com.elice.boardproject.comment.controller;
 
 import com.elice.boardproject.category.entity.Category;
 import com.elice.boardproject.category.entity.CategoryPutDto;
+import com.elice.boardproject.category.service.CategoryService;
 import com.elice.boardproject.comment.entity.Comment;
 import com.elice.boardproject.comment.entity.CommentPostDto;
 import com.elice.boardproject.comment.entity.CommentPutDto;
 import com.elice.boardproject.comment.service.CommentService;
 import com.elice.boardproject.post.entity.Post;
-import com.elice.boardproject.post.entity.PostPostDto;
 import com.elice.boardproject.post.entity.PostPutDto;
 import com.elice.boardproject.post.service.PostService;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,10 +22,13 @@ import java.util.List;
 public class CommentViewController {
     private final CommentService commentService;
     private final PostService postService;
+    private final CategoryService categoryService;
 
-    public CommentViewController(CommentService commentService, PostService postService){
+
+    public CommentViewController(CommentService commentService, PostService postService, CategoryService categoryService){
         this.commentService = commentService;
         this.postService = postService;
+        this.categoryService = categoryService;
     }
 
 
@@ -69,15 +67,25 @@ public class CommentViewController {
         return "redirect:/posts/" + postId;
     }
 
+
     @Transactional
     @DeleteMapping("/{commentId}")
     public String deleteComment(@PathVariable Long commentId, RedirectAttributes redirectAttributes){
-        Comment comment = commentService.retrievePostById(commentId);
+        Comment comment = commentService.retrieveCommentById(commentId);
         Post post = comment.getPost();
+
+//        Category category = post.getCategory();
+//        category.getPosts().remove(post);
         post.getComments().remove(comment);
-        List<Comment> comments =post.getComments();
+//        category.getPosts().add(post);
+//        CategoryPutDto categoryPutDto = category.toCategoryPutDto();
+//        categoryService.updateCategory(category.getCategoryId(), categoryPutDto);
+
+//        PostPutDto postPutDto = post.toPostPutDto();
+//        postService.updatePost(post.getPostId(), postPutDto);
 
         commentService.deleteComment(commentId);
+        List<Comment> comments = commentService.retrieveCommentByPost(post);
 
         redirectAttributes.addFlashAttribute("post", post);
         redirectAttributes.addFlashAttribute("comments", comments);

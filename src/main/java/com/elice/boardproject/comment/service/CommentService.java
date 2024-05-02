@@ -8,6 +8,7 @@ import com.elice.boardproject.comment.repository.CommentRepository;
 import com.elice.boardproject.post.entity.Post;
 import com.elice.boardproject.post.entity.PostPostDto;
 import com.elice.boardproject.post.entity.PostPutDto;
+import com.elice.boardproject.post.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CommentService {
@@ -26,17 +28,12 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public List<Comment> retrieveAllPosts(){
-        return commentRepository.findAll();
+    public List<Comment> retrieveCommentByPost(Post post){
+        return commentRepository.findByPost(post);
     }
-
-    public Page<Comment> retrieveAllPosts(Pageable pageable) {
-        return commentRepository.findAll(pageable);
-    }
-
-    public Comment retrievePostById(Long id){
-        return commentRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("Comment with id " + id + " does not exist"));
+    public Comment retrieveCommentById(Long commentId){
+        return commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalStateException("Comment with id " + commentId + " does not exist"));
     }
 
     public Comment createComment(CommentPostDto commentPostDto){
@@ -63,7 +60,7 @@ public class CommentService {
     }
 
     public void deleteComment(Long id){
-        commentRepository.findById(id).ifPresent(comment -> commentRepository.delete(comment));
+        commentRepository.findById(id).ifPresent(commentRepository::delete);
     }
 
 

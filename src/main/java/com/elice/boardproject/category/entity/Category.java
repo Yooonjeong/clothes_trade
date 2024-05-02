@@ -27,7 +27,7 @@ public class Category {
     private String categoryName;
     private String categoryDescription;
 
-    @OneToMany(mappedBy = "category", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "category", fetch=FetchType.EAGER, orphanRemoval = true)
     private List<Post> posts;
 
 

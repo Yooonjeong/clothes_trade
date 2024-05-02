@@ -33,12 +33,7 @@ public class Comment extends BaseEntity {
         this.post = post;
         this.commentContent = commentContent;
     }
-//    public Comment(Post post, String commentContent, LocalDateTime createdDate, LocalDateTime modifiedDate){
-//        this.post = post;
-//        this.commentContent = commentContent;
-//        this.createdDate = createdDate;
-//        this.modifiedDate = modifiedDate;
-//    }
+
     public CommentPutDto toCommentPutDto(){
         CommentPutDto commentPutDto = new CommentPutDto();
         commentPutDto.setCommentId(this.commentId);
