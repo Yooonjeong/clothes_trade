@@ -76,7 +76,25 @@ public class PostService {
 
     }
 
-    public Post updatePost(Long id, PostPutDto postPutDto){
+    public Post createPost(PostPostDto postPostDto, String image){
+
+        Category category = categoryRepository.findById(postPostDto.getCategoryId())
+                .orElseThrow(() -> new IllegalStateException("Category with id " + postPostDto.getCategoryId() + " does not exist"));
+
+        Post post = new Post();
+        post.setPostTitle(postPostDto.getPostTitle());
+        post.setPostContent(postPostDto.getPostContent());
+        post.setCategory(category);
+        post.setComments(new ArrayList<>());
+        post.setColor(postPostDto.getColor());
+        post.setImage(image);
+
+        Post savedPost = postRepository.save(post);
+        return savedPost;
+
+    }
+
+    public Post updatePost(Long id, PostPutDto postPutDto, String image){
         Category category = categoryRepository.findById(postPutDto.getCategoryId())
                 .orElseThrow(() -> new IllegalStateException("Category with id " + postPutDto.getCategoryId() + " does not exist"));
 
@@ -85,8 +103,12 @@ public class PostService {
                     existingPost.setPostTitle(postPutDto.getPostTitle());
                     existingPost.setPostContent(postPutDto.getPostContent());
                     existingPost.setCategory(category);
-                    existingPost.setComments(postPutDto.getComments());
+                    existingPost.getComments().clear();
+                    if(postPutDto.getComments() != null) {
+                        existingPost.getComments().addAll(postPutDto.getComments());
+                    }
                     existingPost.setColor(postPutDto.getColor());
+                    existingPost.setImage(image);
                     Post updatedPost = postRepository.save(existingPost);
                     return updatedPost;
                 })

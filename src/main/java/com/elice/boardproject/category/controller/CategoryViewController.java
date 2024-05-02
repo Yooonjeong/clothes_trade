@@ -50,8 +50,10 @@ public class CategoryViewController {
     @GetMapping("/{categoryId}")
     public String getCategory(@PathVariable Long categoryId, @RequestParam(required = false) String keyword,
                               @RequestParam(required = false) ColorGroup color, @PageableDefault(size = 10) Pageable pageable, Model model){
-        Category category = categoryService.retrieveCategoryById(categoryId);
+        List<Category> categories = categoryService.retrieveAllCategories();
+        model.addAttribute("categories", categories);
 
+        Category category = categoryService.retrieveCategoryById(categoryId);
         model.addAttribute("category", category);
 
 
@@ -80,8 +82,8 @@ public class CategoryViewController {
 
     @PostMapping("/create")
     public String createCategory(@ModelAttribute CategoryPostDto categoryPostDto, RedirectAttributes redirectAttributes){
-        Category createdCategory = categoryService.createCategory(categoryPostDto);
 
+        Category createdCategory = categoryService.createCategory(categoryPostDto);
         redirectAttributes.addAttribute("categoryId", createdCategory.getCategoryId());
 
         return "redirect:/categories";

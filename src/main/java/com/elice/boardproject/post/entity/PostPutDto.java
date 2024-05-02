@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class PostPutDto {
     private String postContent;
 
     private ColorGroup color;
+    private MultipartFile image;
 
     private Long categoryId;
     private List<Comment> comments;

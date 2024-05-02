@@ -13,6 +13,7 @@
       rel="stylesheet"
     />
 
+
     <style>
       html,
       body {
@@ -33,32 +34,40 @@
       }
       .color-search-container {
         display: flex;
-        align-items: center; /* 레이블과 드롭다운을 중앙 정렬 */
-        padding-right: 20px; /* 드롭다운과의 여백 조정 */
-        margin-right: 100px; /* 레이블과 드롭다운 사이의 여백 추가 */
+        align-items: center;
+        padding-right: 20px;
+        margin-right: 100px;
       }
       .color-search {
-        flex-grow: 1; /* 드롭다운을 컨테이너의 나머지 공간에 맞춤 */
-        max-width: 180px; /* 드롭다운의 최대 너비 지정 */
+        flex-grow: 1;
+        max-width: 180px;
       }
-      /* 업로드 버튼과 취소 버튼 사이의 여백 추가 */
       .btn-primary {
-        margin-right: 5px; /* 업로드 버튼의 오른쪽 여백 추가 */
+        margin-right: 5px;
       }
       .label-margin {
-        margin-right: 10px; /* 레이블과 드롭다운 사이의 여백 추가 */
+        margin-right: 10px;
       }
     </style>
     <title>게시글 수정</title>
   </head>
   <body>
-    <div class="container my-5">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <img th:src="@{'/ClothesTrade' + '.png'}" alt="ClothesTrade 로고" class="ms-3 mt-3 mb-0" style="height: 60px;">
+      </div>
+    </div>
+  </div>
+    <div class="container mt-0 mb-5">
       <div class="header mb-5">
         <h1 class="text-center">게시글 수정</h1>
       </div>
       <form
         th:action="@{/posts/{postId}/edit(postId=${post.postId})}"
         method="post"
+        onsubmit="return validateForm()"
+        enctype="multipart/form-data"
       >
         <input type="hidden" name="categoryId" th:value="${post.category.categoryId}">
         <div class="mb-3">
@@ -103,6 +112,16 @@
             </select>
           </div>
         </div>
+        <div class="mb-3">
+          <label for="image">이미지</label>
+          <input
+                  type="file"
+                  class="form-control"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+          />
+        </div>
         <div class="d-flex justify-content-end">
           <button type="submit" class="btn btn-primary colorSet">수정</button>
           <button
@@ -122,5 +141,19 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <script>
+      function validateForm() {
+        // 색상 선택된 값 가져오기
+        var color = document.getElementById('color').value;
+
+        // 색상이 선택되지 않은 경우 알림 창을 띄우고 폼 제출을 막음
+        if (color == "") {
+          alert("색상을 선택해주세요.");
+          return false; // 폼 제출을 막음
+        }
+
+        return true; // 색상이 선택되었다면 폼 제출을 진행
+      }
+    </script>
   </body>
 </html>

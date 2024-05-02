@@ -8,6 +8,7 @@ import com.elice.boardproject.comment.service.CommentService;
 import com.elice.boardproject.post.entity.Post;
 import com.elice.boardproject.post.entity.PostPostDto;
 import com.elice.boardproject.post.entity.PostPutDto;
+import com.elice.boardproject.post.service.FileStorageService;
 import com.elice.boardproject.post.service.PostService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -17,8 +18,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -27,10 +30,12 @@ public class PostViewController {
     private final PostService postService;
     private final CategoryService categoryService;
     private final CommentService commentService;
-    public PostViewController(PostService postService, CategoryService categoryService, CommentService commentService) {
+    private final FileStorageService fileStorageService;
+    public PostViewController(PostService postService, CategoryService categoryService, CommentService commentService, FileStorageService fileStorageService) {
         this.postService = postService;
         this.categoryService = categoryService;
         this.commentService = commentService;
+        this.fileStorageService = fileStorageService;
     }
 
 //    @GetMapping
@@ -50,8 +55,10 @@ public class PostViewController {
 
     @GetMapping("/{postId}")
     public String getPost(@PathVariable Long postId, Model model){
+        List<Category> categories = categoryService.retrieveAllCategories();
         Post post = postService.retrievePostById(postId);
         List<Comment> comments = post.getComments();
+        model.addAttribute("categories", categories);
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);
         return "post/post";
@@ -65,8 +72,17 @@ public class PostViewController {
 
     @Transactional
     @PostMapping("/create")
-    public String createPost(@ModelAttribute PostPostDto postPostDto, RedirectAttributes redirectAttributes, @RequestParam("categoryId") Long categoryId){
-        Post createdPost = postService.createPost(postPostDto);
+    public String createPost(@ModelAttribute PostPostDto postPostDto, RedirectAttributes redirectAttributes,
+                             @RequestParam("categoryId") Long categoryId, @RequestParam("image") MultipartFile image) throws IOException {
+
+        Post createdPost;
+        if (!image.isEmpty()) {
+            String filename = fileStorageService.storeFile(image);
+            createdPost = postService.createPost(postPostDto, filename);
+        }
+        else{
+            createdPost = postService.createPost(postPostDto);
+        }
         Category category = createdPost.getCategory();
         CategoryPutDto categoryPutDto = category.toCategoryPutDto();
 
@@ -91,19 +107,21 @@ public class PostViewController {
     }
 
     @PostMapping("/{postId}/edit")
-    public String editPost(@ModelAttribute PostPostDto postPostDto, @PathVariable Long postId, RedirectAttributes redirectAttributes, @RequestParam("categoryId") Long categoryId){
+    public String editPost(@ModelAttribute PostPutDto postPutDto, @PathVariable Long postId, RedirectAttributes redirectAttributes,
+                           @RequestParam("categoryId") Long categoryId, @RequestParam("image") MultipartFile image) throws IOException {
 
-        Post post = postService.retrievePostById(postId);
+        List<Category> categories = categoryService.retrieveAllCategories();
+        redirectAttributes.addFlashAttribute("categories", categories);
 
-        PostPutDto postPutDto = new PostPutDto();
-        postPutDto.setPostTitle(postPostDto.getPostTitle());
-        postPutDto.setPostContent(postPostDto.getPostContent());
-        postPutDto.setPostId(postId);
-        postPutDto.setComments(post.getComments());
-        postPutDto.setCategoryId(categoryId);
-        postPutDto.setColor(postPostDto.getColor());
+        Post updatedPost;
+        if (!image.isEmpty()) {
+            String filename = fileStorageService.storeFile(image);
+            updatedPost = postService.updatePost(postId, postPutDto, filename);
+        }
+        else{
+            updatedPost = postService.updatePost(postId, postPutDto, null);
+        }
 
-        Post updatedPost = postService.updatePost(postId, postPutDto);
         Category category = updatedPost.getCategory();
         redirectAttributes.addFlashAttribute("category", category);
 
