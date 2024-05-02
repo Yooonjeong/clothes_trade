@@ -14,9 +14,15 @@
     />
 
     <style>
+      @font-face {
+        font-family: 'MaruBuri-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/MaruBuri-Regular.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
       html,
       body {
-        font-family: "Century Gothic", sans-serif;
+        font-family: 'MaruBuri-Regular';
       }
       .colorSet{
         background-color: #343a40; /* Bootstrap의 dark 회색 */
@@ -38,7 +44,9 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <img th:src="@{'/ClothesTrade' + '.png'}" alt="ClothesTrade 로고" class="ms-3 mt-3 mb-0" style="height: 60px;">
+          <a th:href="@{/categories}">
+            <img th:src="@{'/ClothesTrade' + '.png'}" alt="ClothesTrade 로고" class="ms-3 mt-3 mb-0" style="height: 60px;">
+          </a>
         </div>
       </div>
     </div>

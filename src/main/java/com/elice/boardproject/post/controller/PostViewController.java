@@ -38,21 +38,6 @@ public class PostViewController {
         this.fileStorageService = fileStorageService;
     }
 
-//    @GetMapping
-//    public String getPosts(Model model, @RequestParam("categoryId") Long categoryId, RedirectAttributes redirectAttributes){
-//        Category category = categoryService.retrieveCategoryById(categoryId);
-//        //model.addAttribute("posts", posts);
-//        //다시 수정
-//        //return "category/category";
-//        redirectAttributes.addFlashAttribute("category", category);
-//        List<Post> posts = category.getPosts();
-//        Pageable pageable = PageRequest.of(0, 10);
-//        Page<Post> postPage = new PageImpl<>(posts, pageable, posts.size());
-//
-//        redirectAttributes.addFlashAttribute("postPage", postPage);
-//        return "redirect:/categories/" + categoryId;
-//    }
-
     @GetMapping("/{postId}")
     public String getPost(@PathVariable Long postId, Model model){
         List<Category> categories = categoryService.retrieveAllCategories();

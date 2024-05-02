@@ -21,6 +21,7 @@ import com.elice.boardproject.category.entity.CategoryResponseDto;
 import com.elice.boardproject.category.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.awt.*;
@@ -49,7 +50,7 @@ public class CategoryViewController {
 
     @GetMapping("/{categoryId}")
     public String getCategory(@PathVariable Long categoryId, @RequestParam(required = false) String keyword,
-                              @RequestParam(required = false) ColorGroup color, @PageableDefault(size = 10) Pageable pageable, Model model){
+                              @RequestParam(required = false) ColorGroup color, @PageableDefault(size = 5) Pageable pageable, Model model){
         List<Category> categories = categoryService.retrieveAllCategories();
         model.addAttribute("categories", categories);
 
@@ -81,7 +82,7 @@ public class CategoryViewController {
     }
 
     @PostMapping("/create")
-    public String createCategory(@ModelAttribute CategoryPostDto categoryPostDto, RedirectAttributes redirectAttributes){
+    public String createCategory(@ModelAttribute CategoryPostDto categoryPostDto, RedirectAttributes redirectAttributes, @RequestParam("image") MultipartFile image){
 
         Category createdCategory = categoryService.createCategory(categoryPostDto);
         redirectAttributes.addAttribute("categoryId", createdCategory.getCategoryId());

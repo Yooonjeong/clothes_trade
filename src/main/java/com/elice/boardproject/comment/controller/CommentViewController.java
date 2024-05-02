@@ -11,6 +11,7 @@ import com.elice.boardproject.post.entity.Post;
 import com.elice.boardproject.post.entity.PostPutDto;
 import com.elice.boardproject.post.service.PostService;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -70,25 +71,8 @@ public class CommentViewController {
 
     @Transactional
     @DeleteMapping("/{commentId}")
-    public String deleteComment(@PathVariable Long commentId, RedirectAttributes redirectAttributes){
-        Comment comment = commentService.retrieveCommentById(commentId);
-        Post post = comment.getPost();
-
-//        Category category = post.getCategory();
-//        category.getPosts().remove(post);
-        post.getComments().remove(comment);
-//        category.getPosts().add(post);
-//        CategoryPutDto categoryPutDto = category.toCategoryPutDto();
-//        categoryService.updateCategory(category.getCategoryId(), categoryPutDto);
-
-//        PostPutDto postPutDto = post.toPostPutDto();
-//        postService.updatePost(post.getPostId(), postPutDto);
-
+    public void deleteComment(@PathVariable Long commentId, RedirectAttributes redirectAttributes){
         commentService.deleteComment(commentId);
-        List<Comment> comments = commentService.retrieveCommentByPost(post);
-
-        redirectAttributes.addFlashAttribute("post", post);
-        redirectAttributes.addFlashAttribute("comments", comments);
-        return "redirect:/posts/"+ post.getPostId();
     }
+
 }

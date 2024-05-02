@@ -20,9 +20,15 @@
 
 
     <style>
+      @font-face {
+        font-family: 'MaruBuri-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/MaruBuri-Regular.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
       html,
       body {
-        font-family: "Century Gothic", sans-serif;
+        font-family: 'MaruBuri-Regular';
       }
       .colorSet{
         background-color: #343a40; /* Bootstrap의 dark 회색 */
@@ -55,6 +61,11 @@
       .all.custom-nav-link:hover{
         color: #494E53 !important;
       }
+      .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       .dropdown-toggle:after {
         content: none;
       }
@@ -71,7 +82,9 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <img th:src="@{'/ClothesTrade' + '.png'}" alt="ClothesTrade 로고" class="ms-3 mt-3 mb-0" style="height: 60px;">
+          <a th:href="@{/categories}">
+            <img th:src="@{'/ClothesTrade' + '.png'}" alt="ClothesTrade 로고" class="ms-3 mt-3 mb-0" style="height: 60px;">
+          </a>
           <div class="d-flex justify-content-center custom-navbar-bg">
             <nav class="navbar navbar-expand-lg navbar-light">
               <div class="collapse navbar-collapse" id="navbarNav">
@@ -89,7 +102,7 @@
         </div>
       </div>
     </div>
-    <div class="container mt-0 mb-5 mx-auto">
+    <div class="container mt-2 mb-5 mx-auto">
       <a
         class="link link-offset-1 link-offset-2-hover text-sm fs-6 mb-2 d-block"
         style="transition: all 0.1s ease-in-out; color: #343a40;"
@@ -100,8 +113,8 @@
         <div class="header mb-3">
           <h2 class="text-start" th:text="${post.postTitle}">게시글 제목</h2>
         </div>
-        <div th:if="${post.image != null}">
-          <img th:src="@{/uploaded-images/{filename}(filename=${post.image})}" alt="Image"/>
+        <div th:if="${post.image != null}" class="image-container">
+          <img th:src="@{/uploaded-images/{filename}(filename=${post.image})}" alt="Image" style="width: 40%; height: 20%; object-fit: contain;"/>
         </div>
         <p class="m-0" th:text="${post.postContent}">게시글 내용</p>
         <hr class="mt-4" />
