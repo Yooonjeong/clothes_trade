@@ -17,3 +17,30 @@
     - 카테고리 별로 적절한 이미지를 삽입하여 시각적인 효과
     - 사용자의 게시글 작성 시 게시글 당 1개의 이미지 등록 가능
     - 게시글 목록에서 게시글의 사진 미리보기 기능
+
+### ERD
+![erd최종](/uploads/ca2210442a44377eb78dd291daac789b/erd최종.png)
+
+### 실행 예시
+![슬라이드1](/uploads/f2af377566f46bf223c4d6954704cb5d/슬라이드1.PNG)
+[전체 카테고리]
+![슬라이드6](/uploads/1b2ba6af855ec1cd9afcb4503ed4fa26/슬라이드6.PNG)
+[게시글 생성]
+![슬라이드7](/uploads/2dabbdfbdd742c3d7fb836f0395c8d5a/슬라이드7.PNG)
+[게시글 수정]
+![슬라이드11](/uploads/2cc05bd26cd12c7627a1269c21fa1625/슬라이드11.PNG)
+[게시글 삭제]
+![슬라이드2](/uploads/3bb7421311d0e2eb1f45e03b5ae8ea57/슬라이드2.PNG)
+![슬라이드3](/uploads/607290a8bd4d277bbbf9d42daaf4e9fb/슬라이드3.PNG)
+[게시글 목록]
+![슬라이드4](/uploads/685cd000fa34ba218cf90077c4b80695/슬라이드4.PNG)
+[게시글 조회]
+![슬라이드5](/uploads/037600be8c2be9d5e678403568c49122/슬라이드5.PNG)
+![슬라이드10](/uploads/669ebd8069039e64756d58fd3de94e3a/슬라이드10.PNG)
+[댓글 등록/수정/삭제]
+![슬라이드8](/uploads/eeee6492a59c50a4c36c257f3d1cff66/슬라이드8.PNG)
+[키워드 검색 기능]
+![슬라이드9](/uploads/d5d55bffcb2f60e0c54b817026e7245f/슬라이드9.PNG)
+[색상 검색 기능]
+
+
