@@ -71,7 +71,7 @@ public class CommentViewController {
 
     @Transactional
     @DeleteMapping("/{commentId}")
-    public void deleteComment(@PathVariable Long commentId, RedirectAttributes redirectAttributes){
+    public void deleteComment(@PathVariable Long commentId){
         commentService.deleteComment(commentId);
     }
 

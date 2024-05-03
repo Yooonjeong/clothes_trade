@@ -82,7 +82,7 @@ public class CategoryViewController {
     }
 
     @PostMapping("/create")
-    public String createCategory(@ModelAttribute CategoryPostDto categoryPostDto, RedirectAttributes redirectAttributes, @RequestParam("image") MultipartFile image){
+    public String createCategory(@ModelAttribute CategoryPostDto categoryPostDto, RedirectAttributes redirectAttributes){
 
         Category createdCategory = categoryService.createCategory(categoryPostDto);
         redirectAttributes.addAttribute("categoryId", createdCategory.getCategoryId());

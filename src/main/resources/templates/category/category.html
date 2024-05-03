@@ -42,10 +42,15 @@
       .pagination .page-link {
         background-color: #6c757d !important;
         border-color: #6c757d !important;
+        color: #343a40;
       }
       .pagination .page-link:hover {
         background-color: #5a6268;
         border-color: #5a6268;
+        color: white;
+      }
+      .page-item.active .page-link {
+        color: white;
       }
       .custom-navbar-bg {
         width: 100%;
@@ -179,7 +184,7 @@
           <img th:if="${post.image != null}"
                th:src="@{/uploaded-images/{filename}(filename=${post.image})}"
                alt="Post Image"
-               class="img-fluid rounded-start" style="max-width: 100%; height: auto;">
+               class="img-fluid rounded-start" style="max-width: 100%; height: auto; max-height: 100px;">
         </div>
         <div class="col-md-10">
           <div class="card-body">
