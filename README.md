@@ -19,28 +19,28 @@
     - 게시글 목록에서 게시글의 사진 미리보기 기능
 
 ### ERD
-![erd최종](/uploads/ca2210442a44377eb78dd291daac789b/erd최종.png)
+![erd최종](https://github.com/user-attachments/assets/e5ea250d-3e5f-407f-b8dd-d740af153eea)
 
 ### 실행 예시
-![슬라이드1](/uploads/f2af377566f46bf223c4d6954704cb5d/슬라이드1.PNG)
+![슬라이드1](https://github.com/user-attachments/assets/25cc3efd-a9eb-4cad-892c-5fb7dcf18757)
 [전체 카테고리]
-![슬라이드6](/uploads/1b2ba6af855ec1cd9afcb4503ed4fa26/슬라이드6.PNG)
+![슬라이드6](https://github.com/user-attachments/assets/3f092dbc-e40f-41b1-9679-a29203950d5c)
 [게시글 생성]
-![슬라이드7](/uploads/2dabbdfbdd742c3d7fb836f0395c8d5a/슬라이드7.PNG)
+![슬라이드7](https://github.com/user-attachments/assets/e4fdaa6d-a409-4119-baec-b5f74d8a1e6a)
 [게시글 수정]
-![슬라이드11](/uploads/2cc05bd26cd12c7627a1269c21fa1625/슬라이드11.PNG)
+![슬라이드11](https://github.com/user-attachments/assets/b3debe78-5074-4fd0-b41d-59e2effca591)
 [게시글 삭제]
-![슬라이드2](/uploads/3bb7421311d0e2eb1f45e03b5ae8ea57/슬라이드2.PNG)
-![슬라이드3](/uploads/607290a8bd4d277bbbf9d42daaf4e9fb/슬라이드3.PNG)
+![슬라이드2](https://github.com/user-attachments/assets/6eb763e0-ac5c-4b77-92f5-37b76ffaf25e)
+![슬라이드3](https://github.com/user-attachments/assets/4395d8f7-a047-414a-9ac3-a29251c23b1f)
 [게시글 목록]
-![슬라이드4](/uploads/685cd000fa34ba218cf90077c4b80695/슬라이드4.PNG)
+![슬라이드4](https://github.com/user-attachments/assets/198c47dd-fd8b-42a4-b1c7-b8401f536ced)
 [게시글 조회]
-![슬라이드5](/uploads/037600be8c2be9d5e678403568c49122/슬라이드5.PNG)
-![슬라이드10](/uploads/669ebd8069039e64756d58fd3de94e3a/슬라이드10.PNG)
+![슬라이드5](https://github.com/user-attachments/assets/a9864037-bea1-4bb6-a051-9af9cf9c2f3c)
+![슬라이드10](https://github.com/user-attachments/assets/da9da7a4-edd2-4d26-8766-a532372d2526)
 [댓글 등록/수정/삭제]
-![슬라이드8](/uploads/eeee6492a59c50a4c36c257f3d1cff66/슬라이드8.PNG)
+![슬라이드8](https://github.com/user-attachments/assets/30f21173-8598-4469-9074-ca6b3b0dfa63)
 [키워드 검색 기능]
-![슬라이드9](/uploads/d5d55bffcb2f60e0c54b817026e7245f/슬라이드9.PNG)
+![슬라이드9](https://github.com/user-attachments/assets/f97fe07c-fcba-4b2f-ac57-56d7b1c81799)
 [색상 검색 기능]
 
 
